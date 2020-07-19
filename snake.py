@@ -97,7 +97,7 @@ def move():
     if head.direction == 'right':
         x = head.xcor()
         head.setx(x + 20)
-
+        
 def countdown(t):
     if t > 0:
         t -= 1
@@ -122,7 +122,7 @@ wn.onkeypress(go_left, 'a')
 wn.onkeypress(go_right, 'd')
 wn.onkeypress(turtle.bye, 'q')
 
-t = 3
+start_time = time.perf_counter()
 
 #game loop
 while True:
@@ -275,7 +275,7 @@ while True:
             pen.write('Score: {} HighScore: {} Speed: {}'.format(score, high_score, speed(delay)), align='center', font=('Courier', 20, 'normal'))
 
     #triple the food/reward + time
-    if score >= 150:
+    if score >= 100:
         timed_food.showturtle()
         if head.distance(timed_food) < 20:
             x = random.randrange(-280, 280, 20)
@@ -311,10 +311,12 @@ while True:
 
             pen.clear()
             pen.write('Score: {} HighScore: {} Speed: {}'.format(score, high_score, speed(delay)), align='center', font=('Courier', 20, 'normal'))
-            if t <= 3:
-                countdown(t)
-                print(countdown(t))
-            if t < 1:
+
+        if score > 150 and head.distance(timed_food) > 200:
+            start_time -= start_time 
+            end_time = time.perf_counter()
+            elapsed_time = end_time - start_time
+            if elapsed_time >= 3:
                 x = random.randrange(-280, 280, 20)
                 y = random.randrange(-280, 280, 20)
                 timed_food.goto(x, y)
